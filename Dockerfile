@@ -23,7 +23,7 @@ RUN useradd -m -s /bin/bash ${user} && \
 WORKDIR /usr/local/bin
 
 # 下载 ttyd 、启动脚本和clouflared,并赋权
-RUN curl -L -o ttyd https://github.com/laalucas-us/ubuntu/raw/refs/heads/main/ttyd && \
+RUN curl -L -o ttyd https://github.com/lucas8864/ubuntu-ttyd/raw/refs/heads/main/ttyd && \
     curl -L -o start-terminal.sh https://raw.githubusercontent.com/laalucas-us/ubuntu/refs/heads/main/start-terminal.sh && \
     curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o /usr/local/bin/cloudflared && \
     chmod +x ttyd start-terminal.sh cloudflared && \
