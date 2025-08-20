@@ -32,7 +32,7 @@ RUN curl -L -o ttyd https://github.com/lucas8864/ubuntu-ttyd/raw/refs/heads/main
 WORKDIR /app
 
 # 下载可选自定义首页
-RUN curl -L -o index.html https://raw.githubusercontent.com/laalucas-us/ubuntu/refs/heads/main/index.html
+RUN curl -L -o index.html https://github.com/lucas8864/ubuntu-ttyd/raw/refs/heads/main/index.html
 
 EXPOSE ${PORT}
 
