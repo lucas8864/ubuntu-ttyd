@@ -4,7 +4,7 @@ LABEL org.opencontainers.image.source="https://github.com/laalucas/ubuntu.git"
 
 ENV TZ=Asia/Shanghai \
     PORT=7860 \
-    user=sealos
+    user=sealos \
     DEBIAN_FRONTEND=noninteractive
 
 # 安装依赖
