@@ -18,7 +18,6 @@ else
     TT_PID=$!
 fi
 
-
 # 启动 Cloudflare Tunnel（仅当 TOKEN 存在）
 if [ -n "$CLOUDFLARE_TOKEN" ]; then
     echo "Starting Cloudflare Tunnel..."
@@ -26,8 +25,6 @@ if [ -n "$CLOUDFLARE_TOKEN" ]; then
     CF_PID=$!
 else
     echo "HF_CLOUDFLARE_TOKEN not set. Skipping Cloudflare Tunnel."
-    # 阻塞保持 ttyd 后台进程运行
-    #wait
 fi
 
 #启动tmate
