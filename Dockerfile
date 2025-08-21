@@ -41,7 +41,7 @@ RUN curl -L -o index.html https://github.com/lucas8864/ubuntu-ttyd/raw/refs/head
 
 EXPOSE ${PORT}
 
-USER ${user}
+# 直接用 root 保证 cloudflared/tmate 能跑（ttyd 降权在脚本里做）
+USER root
 
-#CMD ["start-terminal.sh"]
-ENTRYPOINT ["/sbin/tini", "--", "start-terminal.sh"]
+ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/start-terminal.sh"]
