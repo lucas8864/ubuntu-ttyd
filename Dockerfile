@@ -5,12 +5,14 @@ LABEL org.opencontainers.image.source="https://github.com/laalucas/ubuntu.git"
 ENV TZ=Asia/Shanghai \
     PORT=7860 \
     user=sealos \
+    password=sealos123 \
+    rootpass=root123 \
     DEBIAN_FRONTEND=noninteractive
 
 # 安装依赖
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    tzdata ca-certificates curl wget vim unzip net-tools iproute2 iputils-ping telnet lsb-release pciutils neofetch \
+    tzdata ca-certificates sudo curl wget vim unzip net-tools iproute2 cron iputils-ping telnet git lsb-release pciutils neofetch \
     htop tree tmux dnsutils lsof sysstat ncdu rsync bash-completion software-properties-common && \
     update-ca-certificates && \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
@@ -18,6 +20,9 @@ RUN apt-get update && \
 
 # 创建普通用户 ${user}，保证 /etc/passwd 有条目
 RUN useradd -m -s /bin/bash ${user} && \
+    echo "${user}:${password}" | chpasswd && \
+    echo "root:${rootpass}" | chpasswd && \
+    usermod -aG sudo "${user}" && \
     echo "${user}:x:1000:1000:${user}:/home/${user}:/bin/bash" >> /etc/passwd
 
 WORKDIR /usr/local/bin
