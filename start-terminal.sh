@@ -12,19 +12,27 @@ echo "Using ttyd password: $USER_PASSWORD"
 # 启动 ttyd 后台
 if [ -f "/app/index.html" ]; then
     /usr/local/bin/ttyd -p 7860 --index /app/index.html --credential "admin:$USER_PASSWORD" bash &
+    TT_PID=$!
 else
     /usr/local/bin/ttyd -p 7860 --credential "admin:$USER_PASSWORD" bash &
+    TT_PID=$!
 fi
 
-#启动tmate
-tmate &
 
 # 启动 Cloudflare Tunnel（仅当 TOKEN 存在）
 if [ -n "$CLOUDFLARE_TOKEN" ]; then
     echo "Starting Cloudflare Tunnel..."
-    cloudflared tunnel run --token "$CLOUDFLARE_TOKEN"
+    cloudflared tunnel run --token "$CLOUDFLARE_TOKEN" &
+    CF_PID=$!
 else
     echo "HF_CLOUDFLARE_TOKEN not set. Skipping Cloudflare Tunnel."
     # 阻塞保持 ttyd 后台进程运行
-    wait
+    #wait
 fi
+
+#启动tmate
+/usr/bin/tmate &
+TM_PID=$!
+
+# 等待三个进程，tini 作为 PID 1 转发信号
+wait $TT_PID $CF_PID $TM_PID
