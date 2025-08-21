@@ -27,7 +27,7 @@ else
     echo "HF_CLOUDFLARE_TOKEN not set. Skipping Cloudflare Tunnel."
 fi
 
-#启动tmate
+#后台启动tmate
 /usr/bin/tmate &
 TM_PID=$!
 
