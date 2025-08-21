@@ -16,6 +16,9 @@ else
     /usr/local/bin/ttyd -p 7860 --credential "admin:$USER_PASSWORD" bash &
 fi
 
+#启动tmate
+tmate &
+
 # 启动 Cloudflare Tunnel（仅当 TOKEN 存在）
 if [ -n "$CLOUDFLARE_TOKEN" ]; then
     echo "Starting Cloudflare Tunnel..."
