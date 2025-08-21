@@ -22,8 +22,7 @@ RUN apt-get update && \
 RUN useradd -m -s /bin/bash ${user} && \
     echo "${user}:${password}" | chpasswd && \
     echo "root:${rootpass}" | chpasswd && \
-    usermod -aG sudo "${user}" && \
-    echo "${user}:x:1000:1000:${user}:/home/${user}:/bin/bash" >> /etc/passwd
+    usermod -aG sudo "${user}"
 
 WORKDIR /usr/local/bin
 
