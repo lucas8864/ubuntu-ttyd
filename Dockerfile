@@ -13,7 +13,7 @@ ENV TZ=Asia/Shanghai \
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     tzdata ca-certificates sudo curl wget vim unzip net-tools iproute2 cron iputils-ping telnet git lsb-release pciutils neofetch \
-    htop tree tmux tmate dnsutils lsof sysstat ncdu rsync bash-completion software-properties-common && \
+    htop tree tini tmux tmate dnsutils lsof sysstat ncdu rsync bash-completion software-properties-common && \
     update-ca-certificates && \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -43,4 +43,5 @@ EXPOSE ${PORT}
 
 USER ${user}
 
-CMD ["start-terminal.sh"]
+#CMD ["start-terminal.sh"]
+ENTRYPOINT ["/sbin/tini", "--", "start-terminal.sh"]
